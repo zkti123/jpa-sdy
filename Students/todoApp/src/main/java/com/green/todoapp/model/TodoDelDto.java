@@ -3,7 +3,7 @@ package com.green.todoapp.model;
 import lombok.Data;
 
 @Data
-public class TodoPatchDto {
+public class TodoDelDto {
     private int itodo;
 
 }

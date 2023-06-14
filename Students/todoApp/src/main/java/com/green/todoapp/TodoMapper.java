@@ -11,5 +11,7 @@ public interface TodoMapper {
 
     List<TodoVo> seltodo();
 
-    int upTodo(TodoPatchDto dto);
+    int upTodo(TodoEntity entity);
+
+    int delTodo(TodoEntity entity);
 }

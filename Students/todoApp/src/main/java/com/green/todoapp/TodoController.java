@@ -1,9 +1,7 @@
 package com.green.todoapp;
 
-import com.green.todoapp.model.TodoInsDto;
-import com.green.todoapp.model.TodoPatchDto;
-import com.green.todoapp.model.TodoSelDto;
-import com.green.todoapp.model.TodoVo;
+import com.green.todoapp.model.*;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +28,17 @@ public class TodoController {
         return service.seltodo();
     }
 
-    @PatchMapping("{itodo}")
-    public int patchTodo(@PathVariable int itodo,@RequestParam int finishYn) {
-        TodoPatchDto dto = new TodoPatchDto();
-        dto.setFinishYn(finishYn);
-        dto.setItodo(itodo);
+    @PatchMapping
+    @Operation(summary = "피니쉬")
+    public int patchTodo(@RequestBody TodoPatchDto dto) {
+
         return service.upTodo(dto);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "삭제")
+    public int delTodo(@RequestParam int itodo){
+
+        return service.delTodo(itodo);
     }
 }

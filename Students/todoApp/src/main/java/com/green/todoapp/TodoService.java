@@ -32,7 +32,20 @@ public class TodoService {
     }
 
     public int upTodo(TodoPatchDto dto){
-        return mapper.upTodo(dto);
+        TodoEntity entity = new TodoEntity();
+        entity.setItodo(dto.getItodo());
+
+        int result = mapper.upTodo(entity);
+        System.out.println(entity.getFinishYn());
+        return entity.getFinishYn();
+    }
+
+    public int delTodo(int itodo){
+        TodoEntity entity = new TodoEntity();
+        entity.setItodo(itodo);
+
+        return mapper.delTodo(entity);
+
     }
 
 
