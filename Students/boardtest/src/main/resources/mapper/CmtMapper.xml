@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.boardtest.cmt.CmtMapper">
+    <insert id="insBoardCmt" useGeneratedKeys="true" keyProperty="iboardcmt">
+        insert into t_board_cmt
+        (iboard,iuser,ctnt)
+        values
+        (#{iboard},#{iuser},#{ctnt})
+    </insert>
+
+    <select id="selBoardCmt">
+        select A.iboardcmt iboardcmt,A.iboard, A.iuser, A.ctnt
+        ,A.created_at createdAt,B.nm writer, B.main_pic writerMainPic
+        from t_board_cmt A
+        inner join t_user B
+        on A.iuser = B.iuser
+        where A.iboard = #{iboard}
+        LIMIT #{startIdx}, #{row}
+
+    </select>
+    <update id="upBoardCmt">
+        update t_board_cmt
+        set ctnt = #{ctnt}
+        ,updated_at = current_timestamp()
+        where iboardcmt = #{iboardcmt}
+        and iuser = #{iuser}
+    </update>
+    <delete id="delboardCmt">
+        delete from t_board_cmt
+        where
+        <if test="iboardCmt > 0 and iuser > 0" >
+            iboardcmt = #{iboardCmt}
+            and iuser = #{iuser}
+        </if>
+        <if test= "iboard > 0">
+             iboard = #{iboard}
+        </if>
+    </delete>
+
+    <select id="selBoardCmtRowCountByIBoard">
+        select count(iboardcmt) from t_board_cmt
+        where iboard = #{ibaord}
+
+    </select>
+
+
+
+
+</mapper>
